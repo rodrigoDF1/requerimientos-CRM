@@ -9,8 +9,19 @@
 *.bbl
 *.blg
 
+# Archivos temporales generados en subcarpetas
+src/*.aux
+src/*.log
+src/*.out
+src/*.toc
+src/*.synctex.gz
+src/*.fls
+src/*.fdb_latexmk
+src/*.pdf
+
 # Archivos del sistema operativo y editores
 .DS_Store
 Thumbs.db
 *.bak
 *~
+.vscode/
