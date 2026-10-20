@@ -1,0 +1,480 @@
+\documentclass[11pt,a4paper]{article}
+
+% ==============================================================================
+% CONFIGURACIÓN DE IDIOMA Y CODIFICACIÓN
+% ==============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+
+% ==============================================================================
+% GEOMETRÍA Y DISEÑO DE PÁGINA
+% ==============================================================================
+\usepackage{geometry}
+\geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2.5cm,
+    headheight=22pt,
+    footskip=1.5cm
+}
+
+% ==============================================================================
+% PALETA DE COLORES CORPORATIVOS
+% ==============================================================================
+\usepackage[table]{xcolor}
+\definecolor{PrimaryNavy}{RGB}{15, 44, 89}        % Azul marino profundo corporativo
+\definecolor{SecondarySteel}{RGB}{30, 96, 145}     % Azul acero / acento profesional
+\definecolor{AccentAmber}{RGB}{217, 119, 6}        % Ámbar para alertas y notas
+\definecolor{BgSoftGray}{RGB}{248, 250, 252}       % Fondo gris claro para cajas
+\definecolor{BorderGray}{RGB}{203, 213, 225}       % Borde sutil
+\definecolor{DarkText}{RGB}{30, 41, 59}            % Texto principal carbón
+\definecolor{MutedText}{RGB}{100, 116, 139}        % Texto secundario / metadatos
+
+% ==============================================================================
+% TIPOGRAFÍA Y MICRO-TIPOGRAFÍA
+% ==============================================================================
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault} % Fuente Sans-Serif moderna ejecutiva
+\usepackage{microtype}
+
+% ==============================================================================
+% PAQUETES TABULARES Y LISTAS
+% ==============================================================================
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=1.8em, labelsep=0.5em}
+
+% ==============================================================================
+% CAJAS RESALTADAS (TCOLORBOX)
+% ==============================================================================
+\usepackage[many]{tcolorbox}
+
+% Estilo para Historias de Usuario
+\newtcolorbox{UserStoryBox}[2]{%
+    enhanced,
+    colback=BgSoftGray,
+    colframe=PrimaryNavy,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    title={#1 \hfill \small\textbf{ID: #2}},
+    arc=3mm,
+    boxrule=1pt,
+    titlerule=0pt,
+    top=8pt,
+    bottom=8pt,
+    left=12pt,
+    right=12pt,
+    drop shadow=black!8!white,
+    before skip=12pt,
+    after skip=12pt
+}
+
+% Estilo para Integraciones
+\newtcolorbox{IntegrationBox}[2]{%
+    enhanced,
+    colback=white,
+    colframe=SecondarySteel,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    title={#1 \hfill \small\textbf{Ref: #2}},
+    arc=2mm,
+    boxrule=1.2pt,
+    titlerule=0pt,
+    top=8pt,
+    bottom=8pt,
+    left=12pt,
+    right=12pt,
+    shadow={1.5mm}{-1.5mm}{0mm}{black!6!white},
+    before skip=12pt,
+    after skip=12pt
+}
+
+% Estilo para Glosario / Notas Técnicas
+\newtcolorbox{GlossaryBox}[1]{%
+    enhanced,
+    colback=BgSoftGray,
+    colframe=BorderGray,
+    coltitle=PrimaryNavy,
+    fonttitle=\bfseries\sffamily,
+    title={#1},
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=white, colframe=SecondarySteel, boxrule=0.8pt, arc=1.5mm},
+    arc=2mm,
+    boxrule=0.8pt,
+    top=12pt,
+    bottom=8pt,
+    left=12pt,
+    right=12pt,
+    before skip=10pt,
+    after skip=10pt
+}
+
+% ==============================================================================
+% ENCABEZADOS Y PIES DE PÁGINA (FANCYHDR)
+% ==============================================================================
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{SecondarySteel}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{BorderGray}\leaders\hrule height \footrulewidth\hfill}}
+
+\fancyhead[L]{\small\sffamily\textcolor{PrimaryNavy}{\textbf{CRM NextGen}} $\cdot$ Captura de Requerimientos}
+\fancyhead[R]{\small\sffamily\textcolor{MutedText}{Versión 1.0}}
+\fancyfoot[L]{\small\sffamily\textcolor{MutedText}{Documento Confidencial de Ingeniería de Software}}
+\fancyfoot[R]{\small\sffamily\textcolor{PrimaryNavy}{\textbf{Página \thepage\ de \pageref{LastPage}}}}
+
+% Redefinir estilo plain para páginas de inicio de capítulo o índice
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[L]{\small\sffamily\textcolor{MutedText}{Documento Confidencial de Ingeniería de Software}}
+    \fancyfoot[R]{\small\sffamily\textcolor{PrimaryNavy}{\textbf{Página \thepage\ de \pageref{LastPage}}}}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% ==============================================================================
+% HIPERVÍNCULOS E ÍNDICE INTERACTIVO
+% ==============================================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=PrimaryNavy,
+    urlcolor=SecondarySteel,
+    citecolor=SecondarySteel,
+    filecolor=SecondarySteel,
+    plainpages=false,
+    pdfpagelabels=true,
+    pdftitle={Documento de Captura de Requerimientos - Sistema CRM},
+    pdfauthor={Equipo de Arquitectura e Ingeniería de Software},
+    pdfsubject={Especificación de Requerimientos y Diseño Funcional},
+    pdfkeywords={CRM, Requerimientos, Historias de Usuario, Integraciones, RNF},
+    bookmarksnumbered=true,
+    pdfstartview={FitH}
+}
+
+% ==============================================================================
+% PERSONALIZACIÓN DE TÍTULOS Y SECCIONES
+% ==============================================================================
+\usepackage{titlesec}
+\titleformat{\section}
+    {\color{PrimaryNavy}\normalfont\Large\bfseries\sffamily}
+    {\thesection.}{0.8em}{}
+    [\vspace{0.2em}\color{SecondarySteel}\titlerule]
+
+\titleformat{\subsection}
+    {\color{SecondarySteel}\normalfont\large\bfseries\sffamily}
+    {\thesubsection}{0.6em}{}
+
+% Espaciado de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% ==============================================================================
+% CUERPO DEL DOCUMENTO
+% ==============================================================================
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% PORTADA EJECUTIVA
+% ------------------------------------------------------------------------------
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+    \pagecolor{white}
+    \begin{tikzpicture}[remember picture, overlay]
+        % Barra vertical decorativa izquierda
+        \fill[color=PrimaryNavy] (current page.north west) rectangle ++(1.2cm, -\paperheight);
+        \fill[color=SecondarySteel] ([xshift=1.2cm]current page.north west) rectangle ++(0.3cm, -\paperheight);
+    \end{tikzpicture}
+    
+    \vspace*{1.5cm}
+    \begin{flushleft}
+        \hspace*{1.2cm}
+        \begin{minipage}{0.88\textwidth}
+            {\large\sffamily\textcolor{SecondarySteel}{\textbf{ESPECIFICACIÓN DE SOFTWARE Y SISTEMAS EMPRESARIALES}}}\\[0.4cm]
+            {\Huge\sffamily\bfseries\textcolor{PrimaryNavy}{Documento de Captura de}}\\[0.2cm]
+            {\Huge\sffamily\bfseries\textcolor{PrimaryNavy}{Requerimientos}}\\[0.4cm]
+            {\LARGE\sffamily\bfseries\textcolor{SecondarySteel}{Sistema CRM Corporativo}}\\[0.8cm]
+            
+            \noindent\textcolor{SecondarySteel}{\rule{\linewidth}{1.5pt}}\\[0.8cm]
+            
+            {\large\sffamily\textcolor{DarkText}{\textbf{Subtítulo:}} Historias de Usuario, Integraciones y Requerimientos No Funcionales}\\[1.5cm]
+            
+            % Ficha Técnica de Portada
+            \begin{tcolorbox}[
+                colback=BgSoftGray,
+                colframe=BorderGray,
+                arc=2mm,
+                boxrule=1pt,
+                left=15pt,
+                right=15pt,
+                top=12pt,
+                bottom=12pt
+            ]
+                \sffamily
+                \begin{tabular}{ll}
+                    \textbf{\textcolor{PrimaryNavy}{Versión:}} & 1.0 \\[4pt]
+                    \textbf{\textcolor{PrimaryNavy}{Fecha:}} & \today \\[4pt]
+                    \textbf{\textcolor{PrimaryNavy}{Estado:}} & Aprobado para Fase de Desarrollo \\[4pt]
+                    \textbf{\textcolor{PrimaryNavy}{Área Responsable:}} & Dirección de Tecnología e Innovación \\[4pt]
+                    \textbf{\textcolor{PrimaryNavy}{Líder de Producto:}} & Equipo de Ingeniería de Software
+                \end{tabular}
+            \end{tcolorbox}
+            
+            \vfill
+            
+            {\small\sffamily\textcolor{MutedText}{
+                Este documento define la línea base de especificación funcional y técnica del Sistema CRM.
+                Su distribución está sujeta a las directivas de confidencialidad institucional.
+            }}
+        \end{minipage}
+    \end{flushleft}
+\end{titlepage}
+\hypersetup{pageanchor=true}
+
+\newpage
+\pagenumbering{roman}
+
+% ------------------------------------------------------------------------------
+% TABLA DE CONTENIDOS
+% ------------------------------------------------------------------------------
+\vspace*{0.5cm}
+{
+    \hypersetup{linkcolor=PrimaryNavy}
+    \tableofcontents
+}
+
+\vfill
+
+\begin{tcolorbox}[
+    enhanced,
+    colback=BgSoftGray,
+    colframe=BorderGray,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=12pt,
+    right=12pt,
+    top=8pt,
+    bottom=8pt
+]
+    \sffamily\small
+    \textcolor{PrimaryNavy}{\textbf{Estructura y Trazabilidad de Requerimientos:}}\\
+    El presente documento está estructurado en cinco secciones clave que cubren desde el control de versiones y necesidades operativas de los usuarios, hasta los criterios de aceptación en integraciones críticas y requerimientos no funcionales de arquitectura.
+\end{tcolorbox}
+
+\vspace{0.4cm}
+\begin{center}
+    \small\sffamily\textcolor{MutedText}{Documento de Requerimientos de Software $\cdot$ Sistema CRM Corporativo}
+\end{center}
+
+\newpage
+\pagenumbering{arabic}
+
+% ------------------------------------------------------------------------------
+% SECCIÓN 1: HISTORIAL DE VERSIONES
+% ------------------------------------------------------------------------------
+\section{Historial de Versiones}
+
+A continuación se detalla el control de cambios y revisiones formales aplicadas al presente documento de requerimientos:
+
+\vspace{0.3cm}
+\begin{table}[h]
+    \centering
+    \sffamily\small
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{c c p{4.2cm} X}
+        \toprule
+        \rowcolor{PrimaryNavy}
+        \textcolor{white}{\textbf{Versión}} & 
+        \textcolor{white}{\textbf{Fecha}} & 
+        \textcolor{white}{\textbf{Autor}} & 
+        \textcolor{white}{\textbf{Descripción del Cambio}} \\
+        \midrule
+        \rowcolor{BgSoftGray}
+        \textbf{0.1} & 10/10/2026 & Equipo de Análisis Funcional & Elaboración inicial del levantamiento de historias de usuario. \\
+        \textbf{0.5} & 15/10/2026 & Arquitectura de Integraciones & Incorporación de especificaciones de API RESTful y OAuth 2.0. \\
+        \rowcolor{BgSoftGray}
+        \textbf{0.9} & 18/10/2026 & Especialista en Seguridad TI & Definición de RNF (RBAC, GDPR, TLS 1.3 y latencias de servicio). \\
+        \textbf{1.0} & \today & Comité de Aprobación Técnica & Consolidación final y liberación para arquitectura y desarrollo. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Registro oficial de versiones y trazabilidad de cambios.}
+    \label{tab:historial_versiones}
+\end{table}
+
+\vspace{0.6cm}
+
+% ------------------------------------------------------------------------------
+% SECCIÓN 2: HISTORIAS DE USUARIO
+% ------------------------------------------------------------------------------
+\section{Historias de Usuario (User Stories)}
+
+Las Historias de Usuario definen las necesidades y funcionalidades del sistema desde la perspectiva de los diferentes perfiles operativos del CRM, aplicando el estándar estructurado \textit{Rol -- Acción -- Beneficio}.
+
+% HU-001
+\begin{UserStoryBox}{Gestión Centralizada de Contactos}{HU-001}
+    \sffamily
+    \begin{itemize}[label=\textcolor{SecondarySteel}{\textbullet}]
+        \item \textbf{Como:} Ejecutivo de Ventas.
+        \item \textbf{Quiero:} Registrar, consultar y actualizar la información de clientes (datos de contacto, historial de interacciones y estado de la cuenta).
+        \item \textbf{Para:} Mantener un seguimiento continuo y personalizado de cada prospecto.
+    \end{itemize}
+    \tcblower
+    \small\textcolor{MutedText}{\textbf{Prioridad:} Alta \hfill \textbf{Iteración sugerida:} Sprint 1}
+\end{UserStoryBox}
+
+% HU-002
+\begin{UserStoryBox}{Gestión del Flujo de Ventas (Pipeline)}{HU-002}
+    \sffamily
+    \begin{itemize}[label=\textcolor{SecondarySteel}{\textbullet}]
+        \item \textbf{Como:} Director Comercial.
+        \item \textbf{Quiero:} Visualizar y gestionar las oportunidades de negocio en un tablero por etapas (prospección, negociación, cierre).
+        \item \textbf{Para:} Proyectar los ingresos y dar seguimiento al rendimiento del equipo.
+    \end{itemize}
+    \tcblower
+    \small\textcolor{MutedText}{\textbf{Prioridad:} Crítica \hfill \textbf{Iteración sugerida:} Sprint 1}
+\end{UserStoryBox}
+
+% HU-003
+\begin{UserStoryBox}{Automatización de Tareas y Recordatorios}{HU-003}
+    \sffamily
+    \begin{itemize}[label=\textcolor{SecondarySteel}{\textbullet}]
+        \item \textbf{Como:} Asesor de Servicio al Cliente.
+        \item \textbf{Quiero:} Programar tareas, llamadas y seguimientos automáticos vinculados a cada cliente.
+        \item \textbf{Para:} Evitar omisiones en la atención y mejorar el tiempo de respuesta.
+    \end{itemize}
+    \tcblower
+    \small\textcolor{MutedText}{\textbf{Prioridad:} Media-Alta \hfill \textbf{Iteración sugerida:} Sprint 2}
+\end{UserStoryBox}
+
+% ------------------------------------------------------------------------------
+% SECCIÓN 3: INTEGRACIONES Y CRITERIOS DE ACEPTACIÓN
+% ------------------------------------------------------------------------------
+\section{Integraciones y Criterios de Aceptación}
+
+El sistema CRM interactuará con el ecosistema tecnológico empresarial para asegurar continuidad operativa y sincronización de datos sin duplicidad.
+
+% INT-01
+\begin{IntegrationBox}{Integración con Correo Electrónico (Gmail / Outlook)}{INT-01}
+    \sffamily
+    \textbf{\textcolor{PrimaryNavy}{Descripción del Alcance:}}\\
+    Sincronización bidireccional de correos electrónicos para registrar la comunicación directa dentro de la plataforma CRM, manteniendo trazabilidad completa de cada intercambio con los clientes.
+    
+    \vspace{0.2cm}
+    \textbf{\textcolor{PrimaryNavy}{Criterios de Aceptación:}}
+    \begin{enumerate}[label=\textbf{\arabic*.}]
+        \item \textbf{Autenticación Segura:} Conexión delegada mediante protocolo \textbf{OAuth 2.0} sin almacenamiento de credenciales directas en la base de datos del CRM.
+        \item \textbf{Asociación Automática:} Vinculación instantánea de correos enviados y recibidos al historial unificado del contacto con base en la dirección de e-mail.
+        \item \textbf{Gestión de Archivos Adjuntos:} Habilitación de envío y almacenamiento de documentos adjuntos directamente desde la interfaz del CRM a través del cliente de correo enlazado.
+    \end{enumerate}
+\end{IntegrationBox}
+
+% INT-02
+\begin{IntegrationBox}{Integración con ERP / Sistema de Facturación}{INT-02}
+    \sffamily
+    \textbf{\textcolor{PrimaryNavy}{Descripción del Alcance:}}\\
+    Conexión mediante arquitectura \textbf{API RESTful} para sincronizar en tiempo real o en lotes el estado de facturación, emisión de pedidos y conciliación de pagos.
+    
+    \vspace{0.2cm}
+    \textbf{\textcolor{PrimaryNavy}{Criterios de Aceptación:}}
+    \begin{enumerate}[label=\textbf{\arabic*.}]
+        \item \textbf{Generación de Factura Borrador:} Creación automatizada del borrador de factura en el ERP inmediatamente al marcar una oportunidad como \textit{«Venta Cerrada»} en el CRM.
+        \item \textbf{Sincronización de Pagos:} Actualización bidireccional del estado financiero y balance de pagos directamente visible en la ficha del cliente en el CRM.
+        \item \textbf{Resiliencia y Monitoreo:} Implementación de cola de reintentos exponenciales (\textit{exponential backoff}) y emisión de alertas críticas al administrador ante anomalías o fallos de conexión con el endpoint del ERP.
+    \end{enumerate}
+\end{IntegrationBox}
+
+\newpage
+
+% ------------------------------------------------------------------------------
+% SECCIÓN 4: REQUERIMIENTOS NO FUNCIONALES (RNF)
+% ------------------------------------------------------------------------------
+\section{Requerimientos No Funcionales (RNF)}
+
+Los Requerimientos No Funcionales estipulan las condiciones de calidad, seguridad, eficiencia operativa y experiencia de usuario que el sistema debe satisfacer de forma estricta.
+
+\vspace{0.3cm}
+\begin{table}[h]
+    \centering
+    \sffamily\small
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabularx}{\textwidth}{c >{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.8cm}}
+        \toprule
+        \rowcolor{PrimaryNavy}
+        \textcolor{white}{\textbf{ID}} & 
+        \textcolor{white}{\textbf{Categoría}} & 
+        \textcolor{white}{\textbf{Especificación Técnica}} & 
+        \textcolor{white}{\textbf{Métrica / Criterio}} \\
+        \midrule
+        \rowcolor{BgSoftGray}
+        \textbf{RNF-01} & 
+        \textbf{Rendimiento} & 
+        Tiempos de respuesta óptimos en renderizado de vistas y procesamiento en capa de servicios API. & 
+        Carga de vistas $< 2\,\text{s}$. \newline Respuestas API $< 500\,\text{ms}$. \\
+        
+        \textbf{RNF-02} & 
+        \textbf{Seguridad y Cumplimiento} & 
+        Cifrado integral de canales en tránsito, control granular de privilegios y observancia de normativas de protección de datos. & 
+        HTTPS con TLS 1.3, modelo RBAC y cumplimiento estricto GDPR. \\
+        
+        \rowcolor{BgSoftGray}
+        \textbf{RNF-03} & 
+        \textbf{Disponibilidad y Escalabilidad} & 
+        Garantía de continuidad del servicio en entornos productivos y capacidad elástica ante picos de demanda. & 
+        Uptime del $99.5\%$ y soporte para $+50\%$ de usuarios concurrentes. \\
+        
+        \textbf{RNF-04} & 
+        \textbf{Usabilidad y Accesibilidad} & 
+        Diseño ergonómico y adaptativo (\textit{responsive}) optimizado para la agilidad en la gestión diaria de prospectos. & 
+        Multi-dispositivo. Alta de prospecto en menos de $3$ clics. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Matriz de Requerimientos No Funcionales del Sistema CRM.}
+    \label{tab:rnf}
+\end{table}
+
+\vspace{0.5cm}
+
+% ------------------------------------------------------------------------------
+% SECCIÓN 5: GLOSARIO Y NOTAS TÉCNICAS
+% ------------------------------------------------------------------------------
+\section{Glosario y Notas Técnicas}
+
+Para garantizar un entendimiento inequívoco entre los equipos de desarrollo, analistas de negocio y los tomadores de decisión, se definen los siguientes términos técnicos clave:
+
+\begin{GlossaryBox}{CRM (\textit{Customer Relationship Management})}
+    Plataforma de software orientada a la gestión integrada de las relaciones comerciales, ventas, seguimiento de prospectos y atención al cliente, cuyo fin es consolidar toda la interacción en una base unificada.
+\end{GlossaryBox}
+
+\begin{GlossaryBox}{ERP (\textit{Enterprise Resource Planning})}
+    Sistema de planificación de recursos empresariales encargado de centralizar y automatizar procesos contables, facturación, compras, inventarios y logística dentro de una organización.
+\end{GlossaryBox}
+
+\begin{GlossaryBox}{API RESTful (\textit{Representational State Transfer})}
+    Interfaz de comunicación basada en los estándares del protocolo HTTP (GET, POST, PUT, DELETE), con arquitectura sin estado (\textit{stateless}) y payloads usualmente formateados en JSON, diseñada para interoperabilidad entre sistemas distribuidos.
+\end{GlossaryBox}
+
+\begin{GlossaryBox}{OAuth 2.0}
+    Protocolo de autorización estándar de la industria que permite a aplicaciones de terceros obtener acceso limitado y seguro a servicios de usuario (por ejemplo, Google Workspace o Microsoft 365) mediante \textit{tokens}, prescindiendo del almacenamiento de contraseñas.
+\end{GlossaryBox}
+
+\begin{GlossaryBox}{RBAC (\textit{Role-Based Access Control})}
+    Mecanismo de seguridad y control de acceso basado en roles que restringe o habilita operaciones en el sistema de acuerdo con las responsabilidades y privilegios asignados al perfil del usuario.
+\end{GlossaryBox}
+
+\begin{GlossaryBox}{Uptime}
+    Métrica porcentual que mide el tiempo de disponibilidad efectiva e ininterrumpida de una infraestructura de software o servicio en la nube durante un periodo determinado (e.g., $99.5\%$ anual o mensual).
+\end{GlossaryBox}
+
+\vspace{0.8cm}
+\begin{center}
+    \small\sffamily\textcolor{MutedText}{--- Fin del Documento de Especificación de Requerimientos ---}
+\end{center}
+
+\end{document}
