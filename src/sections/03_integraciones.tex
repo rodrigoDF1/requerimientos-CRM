@@ -1,0 +1,36 @@
+% ------------------------------------------------------------------------------
+% SECCIÓN 3: INTEGRACIONES Y CRITERIOS DE ACEPTACIÓN
+% ------------------------------------------------------------------------------
+\section{Integraciones y Criterios de Aceptación}
+
+El sistema CRM interactuará con el ecosistema tecnológico empresarial para asegurar continuidad operativa y sincronización de datos sin duplicidad.
+
+% INT-01
+\begin{IntegrationBox}{Integración con Correo Electrónico (Gmail / Outlook)}{INT-01}
+    \sffamily
+    \textbf{\textcolor{PrimaryNavy}{Descripción del Alcance:}}\\
+    Sincronización bidireccional de correos electrónicos para registrar la comunicación directa dentro de la plataforma CRM, manteniendo trazabilidad completa de cada intercambio con los clientes.
+    
+    \vspace{0.2cm}
+    \textbf{\textcolor{PrimaryNavy}{Criterios de Aceptación:}}
+    \begin{enumerate}[label=\textbf{\arabic*.}]
+        \item \textbf{Autenticación Segura:} Conexión delegada mediante protocolo \textbf{OAuth 2.0} sin almacenamiento de credenciales directas en la base de datos del CRM.
+        \item \textbf{Asociación Automática:} Vinculación instantánea de correos enviados y recibidos al historial unificado del contacto con base en la dirección de e-mail.
+        \item \textbf{Gestión de Archivos Adjuntos:} Habilitación de envío y almacenamiento de documentos adjuntos directamente desde la interfaz del CRM a través del cliente de correo enlazado.
+    \end{enumerate}
+\end{IntegrationBox}
+
+% INT-02
+\begin{IntegrationBox}{Integración con ERP / Sistema de Facturación}{INT-02}
+    \sffamily
+    \textbf{\textcolor{PrimaryNavy}{Descripción del Alcance:}}\\
+    Conexión mediante arquitectura \textbf{API RESTful} para sincronizar en tiempo real o en lotes el estado de facturación, emisión de pedidos y conciliación de pagos.
+    
+    \vspace{0.2cm}
+    \textbf{\textcolor{PrimaryNavy}{Criterios de Aceptación:}}
+    \begin{enumerate}[label=\textbf{\arabic*.}]
+        \item \textbf{Generación de Factura Borrador:} Creación automatizada del borrador de factura en el ERP inmediatamente al marcar una oportunidad como \textit{«Venta Cerrada»} en el CRM.
+        \item \textbf{Sincronización de Pagos:} Actualización bidireccional del estado financiero y balance de pagos directamente visible en la ficha del cliente en el CRM.
+        \item \textbf{Resiliencia y Monitoreo:} Implementación de cola de reintentos exponenciales (\textit{exponential backoff}) y emisión de alertas críticas al administrador ante anomalías o fallos de conexión con el endpoint del ERP.
+    \end{enumerate}
+\end{IntegrationBox}

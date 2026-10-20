@@ -1,0 +1,33 @@
+\documentclass[11pt,a4paper]{article}
+
+% ==============================================================================
+% CONFIGURACIÓN Y MÓDULOS DE DISEÑO
+% ==============================================================================
+\input{config/packages.tex}
+\input{config/colors.tex}
+\input{config/environments.tex}
+\input{config/page_layout.tex}
+
+% ==============================================================================
+% DOCUMENTO PRINCIPAL
+% ==============================================================================
+\begin{document}
+
+% Portada institucional
+\input{sections/00_portada.tex}
+
+% Índice general en página dedicada independiente
+\newpage
+\pagenumbering{roman}
+\input{sections/00_indice.tex}
+
+% Secciones de Contenido Técnico
+\newpage
+\pagenumbering{arabic}
+\input{sections/01_historial_versiones.tex}
+\input{sections/02_historias_usuario.tex}
+\input{sections/03_integraciones.tex}
+\input{sections/04_requerimientos_no_funcionales.tex}
+\input{sections/05_glosario.tex}
+
+\end{document}

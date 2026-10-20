@@ -1,0 +1,56 @@
+% ------------------------------------------------------------------------------
+% PORTADA EJECUTIVA
+% ------------------------------------------------------------------------------
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+    \pagecolor{white}
+    \begin{tikzpicture}[remember picture, overlay]
+        % Barra vertical decorativa izquierda
+        \fill[color=PrimaryNavy] (current page.north west) rectangle ++(1.2cm, -\paperheight);
+        \fill[color=SecondarySteel] ([xshift=1.2cm]current page.north west) rectangle ++(0.3cm, -\paperheight);
+    \end{tikzpicture}
+    
+    \vspace*{1.5cm}
+    \begin{flushleft}
+        \hspace*{1.2cm}
+        \begin{minipage}{0.88\textwidth}
+            {\large\sffamily\textcolor{SecondarySteel}{\textbf{ESPECIFICACIÓN DE SOFTWARE Y SISTEMAS EMPRESARIALES}}}\\[0.4cm]
+            {\Huge\sffamily\bfseries\textcolor{PrimaryNavy}{Documento de Captura de}}\\[0.2cm]
+            {\Huge\sffamily\bfseries\textcolor{PrimaryNavy}{Requerimientos}}\\[0.4cm]
+            {\LARGE\sffamily\bfseries\textcolor{SecondarySteel}{Sistema CRM Corporativo}}\\[0.8cm]
+            
+            \noindent\textcolor{SecondarySteel}{\rule{\linewidth}{1.5pt}}\\[0.8cm]
+            
+            {\large\sffamily\textcolor{DarkText}{\textbf{Subtítulo:}} Historias de Usuario, Integraciones y Requerimientos No Funcionales}\\[1.5cm]
+            
+            % Ficha Técnica de Portada
+            \begin{tcolorbox}[
+                colback=BgSoftGray,
+                colframe=BorderGray,
+                arc=2mm,
+                boxrule=1pt,
+                left=15pt,
+                right=15pt,
+                top=12pt,
+                bottom=12pt
+            ]
+                \sffamily
+                \begin{tabular}{ll}
+                    \textbf{\textcolor{PrimaryNavy}{Versión:}} & 1.0 \\[4pt]
+                    \textbf{\textcolor{PrimaryNavy}{Fecha:}} & \today \\[4pt]
+                    \textbf{\textcolor{PrimaryNavy}{Estado:}} & Aprobado para Fase de Desarrollo \\[4pt]
+                    \textbf{\textcolor{PrimaryNavy}{Área Responsable:}} & Dirección de Tecnología e Innovación \\[4pt]
+                    \textbf{\textcolor{PrimaryNavy}{Líder de Producto:}} & Equipo de Ingeniería de Software
+                \end{tabular}
+            \end{tcolorbox}
+            
+            \vfill
+            
+            {\small\sffamily\textcolor{MutedText}{
+                Este documento define la línea base de especificación funcional y técnica del Sistema CRM.
+                Su distribución está sujeta a las directivas de confidencialidad institucional.
+            }}
+        \end{minipage}
+    \end{flushleft}
+\end{titlepage}
+\hypersetup{pageanchor=true}

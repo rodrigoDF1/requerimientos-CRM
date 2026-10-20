@@ -24,8 +24,22 @@ requerimientos-CRM/
 ├── scripts/                              # ⚙️ Scripts de compilación automatizada
 │   ├── build.bat                         # Compilación en 1 clic para Windows
 │   └── build.sh                          # Compilación en 1 clic para Linux / macOS
-├── src/
-│   └── requerimientos_crm.tex            # 🖋️ Código fuente completo en LaTeX
+├── src/                                  # 🖋️ Código fuente modular en LaTeX
+│   ├── main.tex                          # Archivo raíz principal (orquestador)
+│   ├── requerimientos_crm.tex            # Entrada directa compatible
+│   ├── config/                           # Configuraciones de diseño y paquetes
+│   │   ├── packages.tex                  # Paquetes, geometría y tipografía
+│   │   ├── colors.tex                    # Paleta cromática corporativa
+│   │   ├── environments.tex              # Cajas estilizadas (tcolorbox)
+│   │   └── page_layout.tex               # Encabezados, pies y títulos (fancyhdr, titlesec)
+│   └── sections/                         # Módulos de contenido técnico
+│       ├── 00_portada.tex                # Portada institucional
+│       ├── 00_indice.tex                 # Índice general en página dedicada
+│       ├── 01_historial_versiones.tex    # Sección 1: Control de versiones
+│       ├── 02_historias_usuario.tex      # Sección 2: Historias de usuario (HU-001 a 003)
+│       ├── 03_integraciones.tex          # Sección 3: Integraciones (INT-01 e INT-02)
+│       ├── 04_requerimientos_no_funcionales.tex # Sección 4: RNF-01 a 04
+│       └── 05_glosario.tex               # Sección 5: Glosario técnico
 ├── .gitignore                            # Exclusión de temporales de LaTeX y SO
 └── README.md                             # Documentación principal del repositorio
 ```
